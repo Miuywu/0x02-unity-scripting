@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+        // Player movement on keypress
 		float moveX = Input.GetAxis("Horizontal");
 		float moveZ = Input.GetAxis("Vertical");
 
@@ -27,6 +28,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Triggers event based on collision between player and another object
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("You win!");
+        }
         if (other.gameObject.CompareTag("Pickup"))
         {
             score++;
@@ -38,14 +44,11 @@ public class PlayerController : MonoBehaviour
             health--;
             Debug.Log("Health: " + health.ToString());
         }
-        if (other.gameObject.CompareTag("Goal"))
-        {
-            Debug.Log("You win!");
-        }
     }
 
     private void Update()
     {
+        // If health equals 0, reload the scene so that the Player starts again from the beginning
         if (health == 0)
         {
             Debug.Log("Game Over!");
